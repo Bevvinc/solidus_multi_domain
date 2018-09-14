@@ -16,6 +16,7 @@ Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new app, timeout: 90
 end
 Capybara.javascript_driver = :poltergeist
+Capybara.server = :webrick
 Capybara.default_max_wait_time = 10
 
 # Requires factories defined in spree_core
