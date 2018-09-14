@@ -1,5 +1,7 @@
 Spree::Store.class_eval do
-  has_and_belongs_to_many :products, join_table: 'spree_products_stores'
+  has_many :store_products, class_name: 'Spree::StoreProduct'
+  has_many :products, through: :store_products
+
   has_many :taxonomies, class_name: 'Spree::Taxonomy'
   has_many :orders, class_name: 'Spree::Order'
 

@@ -1,4 +1,7 @@
 describe Spree::Store do
+  it { should have_many(:store_products).class_name('Spree::StoreProduct') }
+  it { should have_many(:products).through(:store_products) }
+
   it { should have_many(:taxonomies).class_name('Spree::Taxonomy') }
   it { should have_many(:orders).class_name('Spree::Order') }
 
