@@ -5,6 +5,7 @@ module SpreeMultiDomain::LineItemConcerns
 
   included do
     prepend(InstanceMethods)
+
     before_create :ensure_product_belongs_to_store
   end
 

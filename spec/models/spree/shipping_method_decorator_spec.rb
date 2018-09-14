@@ -5,6 +5,12 @@ describe Spree::ShippingMethod do
   let(:order) { create :order, store: store }
   let(:store) { create :store }
 
+  it do
+    should have_many(:store_shipping_methods)
+      .class_name('Spree::StoreShippingMethod')
+  end
+  it { should have_many(:stores).through(:store_shipping_methods) }
+
   describe '.store_match?' do
     subject { shipping_method.store_match?(order) }
 
