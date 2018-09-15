@@ -6,9 +6,7 @@ describe Spree::PermissionSets::StoreDisplay do
   subject { ability }
 
   context "when activated" do
-    before do
-      described_class.new(ability).activate!
-    end
+    before { described_class.new(ability).activate! }
 
     it { should be_able_to(:display, Spree::Store) }
     it { should be_able_to(:admin, Spree::Store) }

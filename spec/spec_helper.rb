@@ -7,6 +7,7 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
 require 'rspec/rails'
 require 'ffaker'
+require 'shoulda/matchers'
 
 require 'database_cleaner'
 require 'capybara/rspec'
@@ -16,6 +17,7 @@ Capybara.register_driver(:poltergeist) do |app|
   Capybara::Poltergeist::Driver.new app, timeout: 90
 end
 Capybara.javascript_driver = :poltergeist
+Capybara.server = :webrick
 Capybara.default_max_wait_time = 10
 
 # Requires factories defined in spree_core
@@ -31,6 +33,13 @@ require 'spree/testing_support/capybara_ext'
 require 'cancan/matchers'
 
 Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each { |f| require f }
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!

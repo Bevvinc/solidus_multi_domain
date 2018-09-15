@@ -2,25 +2,33 @@ require 'spec_helper'
 
 describe Spree::ShippingMethod do
   let(:shipping_method) { create :shipping_method }
-  let(:order) { create :order, :store => store }
+  let(:order) { create :order, store: store }
   let(:store) { create :store }
+
+  it do
+    should have_many(:store_shipping_methods)
+      .class_name('Spree::StoreShippingMethod')
+  end
+  it { should have_many(:stores).through(:store_shipping_methods) }
 
   describe '.store_match?' do
     subject { shipping_method.store_match?(order) }
 
     context 'when store contains this shipping method' do
       before { store.shipping_methods << shipping_method }
-      it { is_expected.to eq(true) }
+
+      it { should be_truthy }
     end
 
     context "when the store does not contain this shipping method" do
       context "when the store has no shipping methods" do
-        it { is_expected.to eq(true) }
+        it { should be_truthy }
       end
 
       context "when the store has at least on shipping method" do
-        before { store.shipping_methods << FactoryBot.create(:shipping_method) }
-        it { is_expected.to eq(false)}
+        before { store.shipping_methods << create(:shipping_method) }
+
+        it { should be_falsey }
       end
     end
   end
