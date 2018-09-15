@@ -8,10 +8,8 @@ Spree::Store.class_eval do
   has_many :store_shipping_methods, class_name: 'Spree::StoreShippingMethod'
   has_many :shipping_methods, through: :store_shipping_methods
 
-  has_and_belongs_to_many :promotion_rules,
-    class_name: 'Spree::Promotion::Rules::Store',
-    join_table: 'spree_promotion_rules_stores',
-    association_foreign_key: :promotion_rule_id
+  has_many :store_promotion_rules, class_name: 'Spree::StorePromotionRule'
+  has_many :promotion_rules, through: :store_promotion_rules
 
   has_attached_file :logo,
     styles: { mini: '48x48>', small: '100x100>', medium: '250x250>' },
